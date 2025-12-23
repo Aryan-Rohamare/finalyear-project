@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Trash2, RotateCcw, ZoomIn, ZoomOut, Move } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { DroneComponent } from "./ComponentLibrary";
+import { iconMap } from "./ComponentLibrary";
 
-interface PlacedComponent extends DroneComponent {
+export interface PlacedComponent extends DroneComponent {
   x: number;
   y: number;
   instanceId: string;
@@ -117,7 +118,7 @@ const DroneWorkspace = ({ placedComponents, onDrop, onRemove, onClear }: DroneWo
           >
             <div className="p-2 bg-card border border-primary/50 rounded-lg glow-primary flex items-center gap-2">
               <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center text-primary text-xs">
-                {comp.icon}
+                {iconMap[comp.iconName]}
               </div>
               <span className="text-xs font-medium">{comp.name}</span>
               <button
@@ -153,4 +154,3 @@ const DroneWorkspace = ({ placedComponents, onDrop, onRemove, onClear }: DroneWo
 };
 
 export default DroneWorkspace;
-export type { PlacedComponent };
