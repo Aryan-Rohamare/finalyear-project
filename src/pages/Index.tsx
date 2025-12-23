@@ -15,6 +15,7 @@ const Index = () => {
       ...component,
       x,
       y,
+      z: 0,
       instanceId: `${component.id}-${Date.now()}`,
     };
     setPlacedComponents(prev => [...prev, newComponent]);
