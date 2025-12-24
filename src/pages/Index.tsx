@@ -1,14 +1,13 @@
-import { useState } from "react";
 import Header from "@/components/layout/Header";
 import ComponentLibrary from "@/components/builder/ComponentLibrary";
 import DroneWorkspace from "@/components/builder/DroneWorkspace";
 import PerformanceMetrics from "@/components/builder/PerformanceMetrics";
 import type { DroneComponent } from "@/components/builder/ComponentLibrary";
 import type { PlacedComponent } from "@/components/builder/DroneWorkspace";
+import { useDroneState } from "@/hooks/useDroneState";
 
 const Index = () => {
-  const [placedComponents, setPlacedComponents] = useState<PlacedComponent[]>([]);
-  const [draggedComponent, setDraggedComponent] = useState<DroneComponent | null>(null);
+  const { placedComponents, addComponent, removeComponent, clearComponents } = useDroneState();
 
   const handleDrop = (component: DroneComponent, x: number, y: number) => {
     const newComponent: PlacedComponent = {
@@ -18,16 +17,7 @@ const Index = () => {
       z: 0,
       instanceId: `${component.id}-${Date.now()}`,
     };
-    setPlacedComponents(prev => [...prev, newComponent]);
-    setDraggedComponent(null);
-  };
-
-  const handleRemove = (instanceId: string) => {
-    setPlacedComponents(prev => prev.filter(c => c.instanceId !== instanceId));
-  };
-
-  const handleClear = () => {
-    setPlacedComponents([]);
+    addComponent(newComponent);
   };
 
   return (
@@ -36,8 +26,8 @@ const Index = () => {
       
       <main className="flex-1 flex">
         {/* Left Panel - Component Library */}
-        <aside className="w-72 border-r border-border p-3">
-          <ComponentLibrary onDragStart={setDraggedComponent} />
+        <aside className="w-72 border-r border-border/50 p-3">
+          <ComponentLibrary onDragStart={() => {}} />
         </aside>
 
         {/* Center - 3D Workspace */}
@@ -45,13 +35,13 @@ const Index = () => {
           <DroneWorkspace 
             placedComponents={placedComponents}
             onDrop={handleDrop}
-            onRemove={handleRemove}
-            onClear={handleClear}
+            onRemove={removeComponent}
+            onClear={clearComponents}
           />
         </section>
 
         {/* Right Panel - Performance Metrics */}
-        <aside className="w-80 border-l border-border p-3">
+        <aside className="w-80 border-l border-border/50 p-3">
           <PerformanceMetrics components={placedComponents} />
         </aside>
       </main>

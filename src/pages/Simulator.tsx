@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
 import TestLibrary from "@/components/simulator/TestLibrary";
-import SimulationView from "@/components/simulator/SimulationView";
+import SimulationView3D from "@/components/simulator/SimulationView3D";
 import TestResults from "@/components/simulator/TestResults";
 import type { Test } from "@/components/simulator/TestLibrary";
+import { useDroneState } from "@/hooks/useDroneState";
 
 const Simulator = () => {
   const [activeTest, setActiveTest] = useState<Test | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const { placedComponents } = useDroneState();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -58,26 +60,27 @@ const Simulator = () => {
       
       <main className="flex-1 flex">
         {/* Left Panel - Test Library */}
-        <aside className="w-72 border-r border-border p-3">
+        <aside className="w-72 border-r border-border/50 p-3">
           <TestLibrary 
             onSelectTest={handleSelectTest}
             activeTest={activeTest}
           />
         </aside>
 
-        {/* Center - Simulation View */}
+        {/* Center - 3D Simulation View */}
         <section className="flex-1 p-3">
-          <SimulationView 
+          <SimulationView3D 
             activeTest={activeTest}
             isRunning={isRunning}
             onToggleRun={handleToggleRun}
             onReset={handleReset}
             progress={progress}
+            droneComponents={placedComponents}
           />
         </section>
 
         {/* Right Panel - Test Results */}
-        <aside className="w-80 border-l border-border p-3">
+        <aside className="w-80 border-l border-border/50 p-3">
           <TestResults 
             activeTest={activeTest}
             isComplete={isComplete}

@@ -100,18 +100,21 @@ const TestLibrary = ({ onSelectTest, activeTest }: TestLibraryProps) => {
 
   return (
     <div className="h-full flex flex-col panel animate-slide-in-left">
-      <div className="panel-header">Test Library</div>
+      <div className="panel-header">
+        <div className="w-2 h-2 rounded-full gradient-primary" />
+        Test Library
+      </div>
       
-      <div className="p-3 border-b border-border">
-        <div className="flex gap-1">
+      <div className="p-3 border-b border-border/50">
+        <div className="flex gap-1 p-1 bg-secondary/30 rounded-lg">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`flex-1 px-2 py-1.5 text-xs rounded-md transition-all ${
+              className={`flex-1 px-3 py-2 text-xs font-medium rounded-md transition-all ${
                 activeCategory === cat 
-                  ? "bg-primary text-primary-foreground" 
-                  : "bg-secondary text-muted-foreground hover:text-foreground"
+                  ? "bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-lg" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
               }`}
             >
               {cat}
@@ -124,34 +127,34 @@ const TestLibrary = ({ onSelectTest, activeTest }: TestLibraryProps) => {
         {filteredTests.map(test => (
           <div
             key={test.id}
-            className={`p-3 rounded-lg border cursor-pointer transition-all ${
+            className={`p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
               activeTest?.id === test.id 
-                ? "bg-primary/10 border-primary glow-primary" 
-                : "bg-secondary/50 border-border hover:border-primary/50"
+                ? "bg-primary/10 border-primary/50 glow-primary" 
+                : "bg-secondary/30 border-border/50 hover:border-primary/30 hover:bg-secondary/50"
             }`}
             onClick={() => onSelectTest(test)}
           >
             <div className="flex items-start gap-3">
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-all ${
                 activeTest?.id === test.id 
-                  ? "bg-primary text-primary-foreground" 
+                  ? "gradient-primary text-primary-foreground shadow-lg" 
                   : "bg-primary/10 text-primary"
               }`}>
                 {test.icon}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1">
                   <p className="font-medium text-sm text-foreground">{test.name}</p>
-                  <span className="text-xs text-muted-foreground font-mono">{test.duration}</span>
+                  <span className="text-xs text-muted-foreground font-mono bg-secondary/50 px-2 py-0.5 rounded">{test.duration}</span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">{test.description}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{test.description}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="p-3 border-t border-border">
+      <div className="p-3 border-t border-border/50">
         <Button 
           className="w-full" 
           variant="glow"
