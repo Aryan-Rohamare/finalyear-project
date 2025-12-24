@@ -7,7 +7,7 @@ import type { PlacedComponent } from "@/components/builder/DroneWorkspace";
 import { useDroneState } from "@/hooks/useDroneState";
 
 const Index = () => {
-  const { placedComponents, addComponent, removeComponent, clearComponents } = useDroneState();
+  const { placedComponents, addComponent, removeComponent, clearComponents, droneColors, setDroneColors } = useDroneState();
 
   const handleDrop = (component: DroneComponent, x: number, y: number) => {
     const newComponent: PlacedComponent = {
@@ -37,6 +37,8 @@ const Index = () => {
             onDrop={handleDrop}
             onRemove={removeComponent}
             onClear={clearComponents}
+            droneColors={droneColors}
+            onColorChange={setDroneColors}
           />
         </section>
 

@@ -1,7 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import type { PlacedComponent } from "@/components/builder/DroneWorkspace";
+import type { DroneColors } from "@/components/builder/ColorPicker";
+import { defaultColors } from "@/components/builder/ColorPicker";
 
 const STORAGE_KEY = "droneforge-components";
+const COLORS_KEY = "droneforge-colors";
 
 export const useDroneState = () => {
   const [placedComponents, setPlacedComponents] = useState<PlacedComponent[]>(() => {
@@ -13,6 +16,15 @@ export const useDroneState = () => {
     }
   });
 
+  const [droneColors, setDroneColors] = useState<DroneColors>(() => {
+    try {
+      const saved = localStorage.getItem(COLORS_KEY);
+      return saved ? JSON.parse(saved) : defaultColors;
+    } catch {
+      return defaultColors;
+    }
+  });
+
   // Persist to localStorage whenever components change
   useEffect(() => {
     try {
@@ -21,6 +33,15 @@ export const useDroneState = () => {
       console.error("Failed to save drone state:", e);
     }
   }, [placedComponents]);
+
+  // Persist colors
+  useEffect(() => {
+    try {
+      localStorage.setItem(COLORS_KEY, JSON.stringify(droneColors));
+    } catch (e) {
+      console.error("Failed to save drone colors:", e);
+    }
+  }, [droneColors]);
 
   const addComponent = useCallback((component: PlacedComponent) => {
     setPlacedComponents(prev => [...prev, component]);
@@ -40,5 +61,7 @@ export const useDroneState = () => {
     addComponent,
     removeComponent,
     clearComponents,
+    droneColors,
+    setDroneColors,
   };
 };
