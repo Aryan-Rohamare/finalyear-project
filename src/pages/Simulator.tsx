@@ -11,7 +11,7 @@ const Simulator = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const { placedComponents } = useDroneState();
+  const { placedComponents, droneColors } = useDroneState();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -76,6 +76,7 @@ const Simulator = () => {
             onReset={handleReset}
             progress={progress}
             droneComponents={placedComponents}
+            droneColors={droneColors}
           />
         </section>
 
