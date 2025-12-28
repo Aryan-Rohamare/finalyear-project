@@ -86,6 +86,7 @@ const Simulator = () => {
             activeTest={activeTest}
             isComplete={isComplete}
             progress={progress}
+            droneComponents={placedComponents}
           />
         </aside>
       </main>
