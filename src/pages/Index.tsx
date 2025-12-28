@@ -44,7 +44,7 @@ const Index = () => {
 
         {/* Right Panel - Performance Metrics */}
         <aside className="w-80 border-l border-border/50 p-3">
-          <PerformanceMetrics components={placedComponents} />
+          <PerformanceMetrics components={placedComponents} onRemoveComponent={removeComponent} />
         </aside>
       </main>
     </div>
