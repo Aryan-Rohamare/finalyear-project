@@ -3,7 +3,8 @@ import Header from "@/components/layout/Header";
 import TestLibrary from "@/components/simulator/TestLibrary";
 import SimulationView3D from "@/components/simulator/SimulationView3D";
 import TestResults from "@/components/simulator/TestResults";
-import type { Test } from "@/components/simulator/TestLibrary";
+import type { Test, TestConfig } from "@/components/simulator/TestLibrary";
+import { defaultTestConfig } from "@/components/simulator/TestLibrary";
 import { useDroneState } from "@/hooks/useDroneState";
 
 const Simulator = () => {
@@ -11,6 +12,7 @@ const Simulator = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [testConfig, setTestConfig] = useState<TestConfig>(defaultTestConfig);
   const { placedComponents, droneColors } = useDroneState();
 
   useEffect(() => {
@@ -64,6 +66,8 @@ const Simulator = () => {
           <TestLibrary 
             onSelectTest={handleSelectTest}
             activeTest={activeTest}
+            testConfig={testConfig}
+            onConfigChange={setTestConfig}
           />
         </aside>
 
@@ -87,6 +91,7 @@ const Simulator = () => {
             isComplete={isComplete}
             progress={progress}
             droneComponents={placedComponents}
+            testConfig={testConfig}
           />
         </aside>
       </main>

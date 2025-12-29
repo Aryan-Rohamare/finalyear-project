@@ -7,9 +7,11 @@ import {
   Zap, 
   ThermometerSun,
   Cloud,
-  Navigation
+  Navigation,
+  Settings2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import TestSettings, { TestConfig, defaultTestConfig } from "./TestSettings";
 
 interface Test {
   id: string;
@@ -90,20 +92,54 @@ const tests: Test[] = [
 interface TestLibraryProps {
   onSelectTest: (test: Test) => void;
   activeTest: Test | null;
+  testConfig: TestConfig;
+  onConfigChange: (config: TestConfig) => void;
 }
 
-const TestLibrary = ({ onSelectTest, activeTest }: TestLibraryProps) => {
+const TestLibrary = ({ onSelectTest, activeTest, testConfig, onConfigChange }: TestLibraryProps) => {
   const [activeCategory, setActiveCategory] = useState("Basic");
+  const [showSettings, setShowSettings] = useState(false);
   const categories = ["Basic", "Advanced", "Extreme"];
 
   const filteredTests = tests.filter(t => t.category === activeCategory);
 
   return (
     <div className="h-full flex flex-col panel animate-slide-in-left">
-      <div className="panel-header">
-        <div className="w-2 h-2 rounded-full gradient-primary" />
-        Test Library
+      <div className="panel-header justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full gradient-primary" />
+          Test Library
+        </div>
+        <button
+          onClick={() => setShowSettings(!showSettings)}
+          className={`p-1.5 rounded-lg transition-all ${
+            showSettings 
+              ? "bg-primary/20 text-primary" 
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+          }`}
+        >
+          <Settings2 className="w-4 h-4" />
+        </button>
       </div>
+      
+      {showSettings && activeTest ? (
+        <div className="p-4 border-b border-border/50 bg-secondary/20">
+          <p className="text-xs font-medium text-foreground mb-3">
+            {activeTest.name} Settings
+          </p>
+          <TestSettings
+            testId={activeTest.id}
+            config={testConfig}
+            onConfigChange={onConfigChange}
+          />
+        </div>
+      ) : showSettings && !activeTest ? (
+        <div className="p-4 border-b border-border/50 bg-secondary/20">
+          <p className="text-xs text-muted-foreground text-center">
+            Select a test to configure
+          </p>
+        </div>
+      ) : null}
       
       <div className="p-3 border-b border-border/50">
         <div className="flex gap-1 p-1 bg-secondary/30 rounded-lg">
@@ -169,3 +205,5 @@ const TestLibrary = ({ onSelectTest, activeTest }: TestLibraryProps) => {
 
 export default TestLibrary;
 export type { Test };
+export { defaultTestConfig };
+export type { TestConfig };
