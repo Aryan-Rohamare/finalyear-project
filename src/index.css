@@ -192,8 +192,16 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[hsl(var(--cyan))] via-primary to-[hsl(var(--pink))] bg-clip-text text-transparent;
     background-size: 200% auto;
+  }
+
+  .text-rainbow {
+    background-image: var(--gradient-rainbow);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .animate-gradient {
