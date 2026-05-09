@@ -57,13 +57,13 @@ const Simulator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      
-      <main className="flex-1 flex">
+
+      <main className="flex-1 flex gap-3 p-4">
         {/* Left Panel - Test Library */}
-        <aside className="w-72 border-r border-border/50 p-3">
-          <TestLibrary 
+        <aside className="w-72 panel p-3 overflow-hidden">
+          <TestLibrary
             onSelectTest={handleSelectTest}
             activeTest={activeTest}
             testConfig={testConfig}
@@ -72,8 +72,8 @@ const Simulator = () => {
         </aside>
 
         {/* Center - 3D Simulation View */}
-        <section className="flex-1 p-3">
-          <SimulationView3D 
+        <section className="flex-1 panel p-3 overflow-hidden">
+          <SimulationView3D
             activeTest={activeTest}
             isRunning={isRunning}
             onToggleRun={handleToggleRun}
@@ -85,8 +85,8 @@ const Simulator = () => {
         </section>
 
         {/* Right Panel - Test Results */}
-        <aside className="w-80 border-l border-border/50 p-3">
-          <TestResults 
+        <aside className="w-80 panel p-3 overflow-hidden">
+          <TestResults
             activeTest={activeTest}
             isComplete={isComplete}
             progress={progress}

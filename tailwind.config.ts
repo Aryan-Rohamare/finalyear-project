@@ -43,6 +43,9 @@ export default {
           DEFAULT: "hsl(var(--warning))",
           foreground: "hsl(var(--warning-foreground))",
         },
+        pink: "hsl(var(--pink))",
+        cyan: "hsl(var(--cyan))",
+        lime: "hsl(var(--lime))",
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
