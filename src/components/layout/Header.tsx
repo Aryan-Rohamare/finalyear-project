@@ -1,9 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Plane, Settings, Zap, Download, Share2 } from "lucide-react";
+import { Plane, Settings, Zap, Download, Share2, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/hooks/useTheme";
 
 const Header = () => {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4">
@@ -51,6 +53,15 @@ const Header = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-full border border-white/10 hover:border-primary/40 hover:bg-primary/10"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </Button>
           <Button
             variant="ghost"
             size="sm"
