@@ -21,18 +21,18 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      
-      <main className="flex-1 flex">
+
+      <main className="flex-1 flex gap-3 p-4">
         {/* Left Panel - Component Library */}
-        <aside className="w-72 border-r border-border/50 p-3">
+        <aside className="w-72 panel p-3 overflow-hidden">
           <ComponentLibrary onDragStart={() => {}} />
         </aside>
 
         {/* Center - 3D Workspace */}
-        <section className="flex-1 p-3">
-          <DroneWorkspace 
+        <section className="flex-1 panel p-3 overflow-hidden">
+          <DroneWorkspace
             placedComponents={placedComponents}
             onDrop={handleDrop}
             onRemove={removeComponent}
@@ -43,7 +43,7 @@ const Index = () => {
         </section>
 
         {/* Right Panel - Performance Metrics */}
-        <aside className="w-80 border-l border-border/50 p-3">
+        <aside className="w-80 panel p-3 overflow-hidden">
           <PerformanceMetrics components={placedComponents} onRemoveComponent={removeComponent} />
         </aside>
       </main>
