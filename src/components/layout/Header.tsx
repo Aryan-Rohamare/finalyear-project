@@ -55,6 +55,15 @@ const Header = () => {
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-full border border-white/10 hover:border-primary/40 hover:bg-primary/10"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </Button>
+          <Button
+            variant="ghost"
             size="sm"
             className="gap-2 rounded-full border border-white/10 hover:border-accent/40 hover:bg-accent/10"
           >
