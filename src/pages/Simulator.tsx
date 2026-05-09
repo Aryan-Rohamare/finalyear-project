@@ -16,7 +16,7 @@ const Simulator = () => {
   const { placedComponents, droneColors } = useDroneState();
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     
     if (isRunning && progress < 100) {
       interval = setInterval(() => {
